@@ -14,6 +14,7 @@ MAINTAINER Dennis Bell <dennis.bell@merapar.com>
 USER root
 RUN apt-get update \
       && apt-get install -y sudo supervisor \
+      && apt-get install pip \
       && rm -rf /var/lib/apt/lists/*
 
 # Install docker-engine
