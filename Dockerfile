@@ -8,7 +8,7 @@
 ###############################################################################
 
 FROM jenkins:2.7.1
-MAINTAINERDennis Bell <dennis.bell@merapar.com>
+MAINTAINER Dennis Bell <dennis.bell@merapar.com>
 
 # Install necessary packages
 USER root
