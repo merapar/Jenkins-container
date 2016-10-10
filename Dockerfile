@@ -13,8 +13,7 @@ MAINTAINER Dennis Bell <dennis.bell@merapar.com>
 # Install necessary packages
 USER root
 RUN apt-get update \
-      && apt-get install -y sudo supervisor \
-      && apt-get install pip \
+      && apt-get install -y sudo supervisor python-pip \
       && rm -rf /var/lib/apt/lists/*
 
 # Install docker-engine
