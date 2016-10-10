@@ -1,5 +1,6 @@
 ![](http://i.imgur.com/KC6TAD3.png)
 Jenkins with DooD (Docker outside of Docker)
+Based on Jenkins 2.x
 ---
 A [Jenkins container](https://registry.hub.docker.com/_/jenkins/) capable of using [Docker](http://docker.com), so you can Docker while you Docker.
 
