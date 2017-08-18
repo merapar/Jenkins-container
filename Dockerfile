@@ -7,43 +7,30 @@
 # * http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci
 ###############################################################################
 
-FROM jenkins:2.32.1
+FROM jenkins/jenkins:2.60.2
 MAINTAINER Dennis Bell <dennis.bell@merapar.com>
 
 # Install necessary packages
 USER root
 RUN apt-get update \
-      && apt-get install -y sudo supervisor python-pip \
+      && apt-get install -y sudo python-pip \
       && rm -rf /var/lib/apt/lists/*
 
 # Install docker-engine
-# According to Petazzoni's article:
-# ---------------------------------
-# "Former versions of this post advised to bind-mount the docker binary from
-# the host to the container. This is not reliable anymore, because the Docker
-# Engine is no longer distributed as (almost) static libraries."
-ARG docker_version=1.11.2
-RUN curl -sSL https://get.docker.com/ | sh && \
-    apt-get purge -y docker-engine && \
-    apt-get install docker-engine=${docker_version}-0~jessie
+# We will bind the socket to use the host docker engine from the container
 
-# Make sure jenkins user has docker privileges
+ARG docker_version=17.06.1~ce-0~debian
+
+RUN curl -sSL https://get.docker.com/ | \
+  sed "s/docker-ce/docker-ce=${docker_version}/" | sh
+
+# Make sure jenkins user has docker privileges to use the socket
 RUN usermod -aG docker jenkins
+
+# Make sure jenkins scripts can run sudo
+RUN echo 'jenkins ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Install initial plugins
 USER jenkins
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
-
-# supervisord
-USER root
-
-# Create log folder for supervisor and jenkins
-RUN mkdir -p /var/log/supervisor
-RUN mkdir -p /var/log/jenkins
-
-# Copy the supervisor.conf file into Docker
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Start supervisord when running the container
-CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

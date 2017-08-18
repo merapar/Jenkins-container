@@ -14,7 +14,11 @@
   <builders>
     <hudson.tasks.Shell>
       <command>docker --version
-docker images</command>
+docker images
+touch test
+ls -l
+sudo touch sudo-test
+ls -l</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

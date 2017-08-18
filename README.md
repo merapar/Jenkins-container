@@ -28,8 +28,8 @@ docker build -t Jenkins-container .
 
 #### You can optionally set `docker-engine` version at build time through the use of the `docker_version` build argument, like so:
 ```bash
-# Default docker_version is 1.11.2
-docker build --build-arg docker_version=1.12.0 -t Jenkins-container .
+# Default docker_version is 17.06.1~ce-0~debian
+docker build --build-arg docker_version=17.06.1~ce-0~debian -t Jenkins-container .
 ```
 
 
