@@ -19,17 +19,17 @@ Long story short, *DooD* (as in *dude*) is the opposite of *[DinD](https://blog.
 docker pull merapar/jenkins-container
 ```
 
-###However, if you wish to build it instead ...
+### However, if you wish to build it instead ...
 ```bash
 git clone https://github.com/merapar/Jenkins-container.git
 cd Jenkins-container
-docker build -t Jenkins-container .
+docker build -t jenkins-container .
 ```
 
 #### You can optionally set `docker-engine` version at build time through the use of the `docker_version` build argument, like so:
 ```bash
 # Default docker_version is 17.06.1~ce-0~debian
-docker build --build-arg docker_version=17.06.1~ce-0~debian -t Jenkins-container .
+docker build --build-arg docker_version=17.06.1~ce-0~debian -t jenkins-container .
 ```
 
 
@@ -38,15 +38,15 @@ docker build --build-arg docker_version=17.06.1~ce-0~debian -t Jenkins-container
 docker-compose up
 ```
 
-###Now, time to have fun with it...
+### Now, time to have fun with it...
 ```bash
 docker run -d -v /var/run/docker.sock:/var/run/docker.sock \
               -v /path/to/your/jenkins/home:/var/jenkins_home \
               -p 8080:8080 \
-              merapar/Jenkins-container
+              merapar/jenkins-container
 ```
 
-###Advantages
+### Advantages
 * No `privileged` mode needed
 * Simpler, Jenkins will use it underlying host's Docker installation
 * Ability to reuse the image cache from the host
@@ -54,14 +54,14 @@ docker run -d -v /var/run/docker.sock:/var/run/docker.sock \
 * Easier to set up, you just need to map the host's Docker executable and daemon socket onto the container
 * Your host and your container will use the same version of Docker, always.
 
-###Disadvantages
+### Disadvantages
 * Although this image does not require `privileged` mode, it does not make it any safer because it can do `docker` things directly on the host, so you have to be aware of this
 * If you want to manage a complete clean Docker environment inside your Jenkins, this one's not for you, you're looking for *DinD*
 
 ---
 
 
-##Copyright and Licensing
+## Copyright and Licensing
 Copyright (c) 2015
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
