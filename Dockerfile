@@ -33,4 +33,5 @@ RUN echo 'jenkins ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 # Install initial plugins
 USER jenkins
 COPY plugins.txt /usr/share/jenkins/plugins.txt
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
+ENV JENKINS_UC="https://updates.jenkins.io"
+RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
