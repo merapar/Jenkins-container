@@ -7,7 +7,7 @@
 # * http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci
 ###############################################################################
 
-FROM jenkins/jenkins:2.60.2
+FROM jenkins/jenkins:2.141
 MAINTAINER Dennis Bell <dennis.bell@merapar.com>
 
 # Install necessary packages
